@@ -1,6 +1,6 @@
 # Nrepl
 
-work in progress to create an nREPL server for ruby. because if ruby is basically a lisp already anyway, it should have a much better repl.
+work in progress to create an [nREPL server](https://nrepl.org/nrepl/design/overview.html) for ruby. because if ruby is basically a lisp already anyway, it should have a much better repl.
 
 consider this version 0.0.1
 
