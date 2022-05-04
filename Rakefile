@@ -10,3 +10,8 @@ require "rubocop/rake_task"
 RuboCop::RakeTask.new
 
 task default: %i[spec rubocop]
+
+task :nrepl do
+  require_relative 'lib/nrepl'
+  NRepl.run
+end
