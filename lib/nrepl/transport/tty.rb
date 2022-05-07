@@ -9,7 +9,7 @@ module NRepl
         end
 
         def decode(str)
-          {op: 'eval', code: str}
+          { op: 'eval', code: str }
         end
 
         def encode(response)
@@ -17,9 +17,10 @@ module NRepl
         end
 
         private
-          def prompt(ns)
-            "(#{ns})=> "
-          end
+
+        def prompt(namespace)
+          "(#{namespace})=> "
+        end
       end
     end
   end

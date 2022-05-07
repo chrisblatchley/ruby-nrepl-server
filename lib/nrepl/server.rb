@@ -14,7 +14,7 @@ module NRepl
 
           {
             server: server,
-            config: { host: host, port: port, mode: :tty}
+            config: { host: host, port: port, mode: :tty }
           }
         end
       end
