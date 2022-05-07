@@ -3,9 +3,10 @@ require 'socket'
 module NRepl
   class Server
     class << self
-      def start(ctx, host: "0.0.0.0", port: "0", quiet: false)
+      def start(host: "0.0.0.0", port: "0", quiet: false)
         server = TCPServer.new(host, port)
-        puts "starting server on port #{server.addr[1]}" unless quiet
+        port = server.addr[1]
+        puts "nREPL server started on port #{port} on host #{host} - nrepl://#{host}:#{port}"
 
         {server: server}
       end

@@ -13,7 +13,7 @@ module NRepl
   def self.run
     opts = {} # skip parsing from command line for now
 
-    ctx = Server.start({}, **opts)
+    ctx = Server.start(**opts)
 
     Server.listen_and_serve(**ctx)
 
