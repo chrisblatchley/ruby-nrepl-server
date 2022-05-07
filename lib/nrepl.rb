@@ -3,6 +3,7 @@
 require_relative "nrepl/version"
 require_relative "nrepl/server"
 require_relative "nrepl/repl"
+require_relative "nrepl/transport"
 
 module NRepl
   class Error < StandardError; end
@@ -11,9 +12,11 @@ module NRepl
     opts = {} # skip parsing from command line for now
 
     ctx = Server.start({}, **opts)
-    ctx[:server].accept.then do |c|
-      Repl.run(c)
+
+    Server.listen_and_serve(**ctx) do |data|
+      Transport.handle data
     end
-    Server.stop(**ctx)
+
+    Server.stop **ctx
   end
 end

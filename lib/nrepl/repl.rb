@@ -3,32 +3,22 @@ require 'securerandom'
 module NRepl
   class Repl
     class << self
-      def run(conn)
-        while input = conn.gets
-          conn.puts({
-            id: SecureRandom.uuid,
-            ns: 'main',
-            out: '',
-            err: '',
-            value: eval(read(input))
-          })
-        end
+      def run(op:, code:)
+        {
+          id: SecureRandom.uuid,
+          ns: 'main',
+          out: '',
+          err: '',
+          value: eval(read(code))
+        }
       end
 
-      def read(str, fmt: :ruby)
-        case fmt
-        when :ruby
-          Kernel.eval(str).tap { |h| raise "Not a hash" unless h.is_a?(Hash) }
-        else
-          {op: 'eval', code: ''}
-        end
+      def read(str)
+        str
       end
 
       def eval(ast)
-        case ast[:op]
-        when 'eval'
-          Kernel.eval(ast[:code])
-        end
+        Kernel.eval ast
       rescue StandardError => err
         "Error: #{err.to_s}"
       rescue Exception => e

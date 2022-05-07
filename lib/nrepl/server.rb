@@ -10,6 +10,13 @@ module NRepl
         {server: server}
       end
 
+      def listen_and_serve(server:)
+        conn = server.accept
+        while data = conn.gets
+          conn.puts yield(data)
+        end
+      end
+
       def stop(server:)
         server.close
       end
