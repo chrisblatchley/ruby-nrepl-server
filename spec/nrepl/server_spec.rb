@@ -2,7 +2,7 @@ RSpec.describe NRepl::Server do
   describe 'start' do
     let(:opts) { {} }
     subject { NRepl::Server.start(**opts) }
-    before { allow(File).to receive(:write).with("nrepl.port", any_args) }
+    before { allow(File).to receive(:write).with('nrepl.port', any_args) }
 
     it { is_expected.to have_key(:server) }
     it { is_expected.to have_key(:config) }
@@ -35,13 +35,13 @@ RSpec.describe NRepl::Server do
     subject { NRepl::Server.stop(**opts) }
 
     before { expect(server).to receive(:close) }
-    before { allow(File).to receive(:delete).with("nrepl.port") }
+    before { allow(File).to receive(:delete).with('nrepl.port') }
 
     it { is_expected.to eq({}) }
   end
 
   describe 'greet' do
     subject { NRepl::Server.greet('localhost', 69420) }
-    it { is_expected.to eq("nREPL server started on port 69420 on host localhost - nrepl://localhost:69420")}
+    it { is_expected.to eq('nREPL server started on port 69420 on host localhost - nrepl://localhost:69420')}
   end
 end

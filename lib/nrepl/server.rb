@@ -3,12 +3,12 @@ require 'socket'
 module NRepl
   class Server
     class << self
-      def start(host: "0.0.0.0", port: "0", quiet: false)
+      def start(host: '0.0.0.0', port: '0', quiet: false)
         TCPServer.new(host, port).then do |server|
           port = server.addr[1]
           puts greet(host, port)
           
-          File.write("nrepl.port", "#{port}\n")
+          File.write('nrepl.port', "#{port}\n")
 
           {
             server: server,
@@ -32,7 +32,7 @@ module NRepl
       end
 
       def stop(server:, **_)
-        File.delete("nrepl.port")
+        File.delete('nrepl.port')
         server.close
         {}
       end

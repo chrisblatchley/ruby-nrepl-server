@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-require_relative "lib/nrepl/version"
+require_relative 'lib/nrepl/version'
 
 Gem::Specification.new do |spec|
-  spec.name = "nrepl"
+  spec.name = 'nrepl'
   spec.version = Nrepl::VERSION
-  spec.authors = ["Chris Blatchley"]
-  spec.email = ["chris@chrisblatchley.com"]
+  spec.authors = ['Chris Blatchley']
+  spec.email = ['chris@chrisblatchley.com']
 
-  spec.summary = "nREPL server for Ruby"
-  spec.description = "an nREPL server for Ruby"
-  spec.homepage = "https://github.com/chrisblatchley/ruby-nrepl"
-  spec.required_ruby_version = ">= 2.6.0"
+  spec.summary = 'nREPL server for Ruby'
+  spec.description = 'an nREPL server for Ruby'
+  spec.homepage = 'https://github.com/chrisblatchley/ruby-nrepl'
+  spec.required_ruby_version = '>= 2.6.0'
 
-  spec.metadata["allowed_push_host"] = "https://rubygems.org"
+  spec.metadata['allowed_push_host'] = 'https://rubygems.org'
 
-  spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/chrisblatchley/ruby-nrepl"
-  spec.metadata["changelog_uri"] = "#{spec.metadata['source_code_uri']}/CHANGELOG.md"
+  spec.metadata['homepage_uri'] = spec.homepage
+  spec.metadata['source_code_uri'] = 'https://github.com/chrisblatchley/ruby-nrepl'
+  spec.metadata['changelog_uri'] = "#{spec.metadata['source_code_uri']}/CHANGELOG.md"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -26,13 +26,13 @@ Gem::Specification.new do |spec|
       (f == __FILE__) || f.match(%r{\A(?:(?:test|spec|features)/|\.(?:git|travis|circleci)|appveyor)})
     end
   end
-  spec.bindir = "exe"
+  spec.bindir = 'exe'
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "pry", "~> 1.0"
-  spec.add_dependency "edn"
+  spec.add_dependency 'edn'
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html

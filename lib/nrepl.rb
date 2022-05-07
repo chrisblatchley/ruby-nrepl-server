@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative "nrepl/version"
-require_relative "nrepl/server"
-require_relative "nrepl/repl"
-require_relative "nrepl/transport"
-require_relative "nrepl/session"
-require_relative "nrepl/ops"
+require_relative 'nrepl/version'
+require_relative 'nrepl/server'
+require_relative 'nrepl/repl'
+require_relative 'nrepl/transport'
+require_relative 'nrepl/session'
+require_relative 'nrepl/ops'
 
 module NRepl
   class Error < StandardError; end
