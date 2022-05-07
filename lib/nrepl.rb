@@ -4,6 +4,8 @@ require_relative "nrepl/version"
 require_relative "nrepl/server"
 require_relative "nrepl/repl"
 require_relative "nrepl/transport"
+require_relative "nrepl/session"
+require_relative "nrepl/ops"
 
 module NRepl
   class Error < StandardError; end
@@ -13,9 +15,7 @@ module NRepl
 
     ctx = Server.start({}, **opts)
 
-    Server.listen_and_serve(**ctx) do |data|
-      Transport.handle data
-    end
+    Server.listen_and_serve(**ctx)
 
     Server.stop **ctx
   end

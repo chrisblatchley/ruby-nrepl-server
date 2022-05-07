@@ -5,8 +5,7 @@ module NRepl
     module Edn
       class << self
         def handle(str)
-          data = EDN.read str
-          yield(data).to_edn
+          EDN.read str
         end
       end
     end

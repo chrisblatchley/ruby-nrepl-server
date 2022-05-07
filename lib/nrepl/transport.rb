@@ -3,11 +3,13 @@ require_relative 'transport/edn'
 module NRepl
   module Transport
     class << self
-      def handle(request, mode: :edn)
+      def handle(session, request, mode: :edn)
         data = case mode
         when :edn
-          Edn.handle(request) { |data| Repl.run(**data) }
+          Edn.handle(request)
         end
+
+        Ops.dispatch(session, data).to_edn
       end
     end
   end

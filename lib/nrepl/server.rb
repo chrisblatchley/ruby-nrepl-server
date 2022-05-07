@@ -12,8 +12,9 @@ module NRepl
 
       def listen_and_serve(server:)
         conn = server.accept
+        session = NRepl::Session.start
         while data = conn.gets
-          conn.puts yield(data)
+          conn.puts Transport.handle(session, data)
         end
       end
 

@@ -3,13 +3,21 @@ require 'securerandom'
 module NRepl
   class Repl
     class << self
-      def run(op:, code:)
+      def run(session, code)
         {
-          id: SecureRandom.uuid,
+          id: session[:id],
           ns: 'main',
           out: '',
-          err: '',
+          err: nil,
           value: eval(read(code))
+        }
+      rescue Exception => e
+        {
+          id: session[:id],
+          ns: 'main',
+          out: '',
+          err: e.to_s,
+          value: nil
         }
       end
 
@@ -19,10 +27,6 @@ module NRepl
 
       def eval(ast)
         Kernel.eval ast
-      rescue StandardError => err
-        "Error: #{err.to_s}"
-      rescue Exception => e
-        "Fatal: #{e.to_s}"
       end
     end
   end
