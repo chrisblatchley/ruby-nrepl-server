@@ -23,24 +23,24 @@ ctrl-c to quit. disconnect should shut down the nrepl server as well.
 
 Supported Transport protocols:
 
-[ ] Bencode
-[x] EDN
-[ ] TTY
+- [ ] Bencode
+- [x] EDN
+- [ ] TTY
 
 Supported nREPL ops:
 
-[ ] add-middleware
-[ ] clone
-[ ] close
-[ ] completions
-[ ] describe
-[x] eval
-[ ] interrupt
-[ ] load-file
-[ ] lookup
-[ ] ls-middleware
-[ ] ls-sessions
-[ ] sideloader-provide
-[ ] sideloader-start
-[ ] stdin
-[ ] swap-middleware
+- [ ] add-middleware
+- [ ] clone
+- [ ] close
+- [ ] completions
+- [ ] describe
+- [x] eval
+- [ ] interrupt
+- [ ] load-file
+- [ ] lookup
+- [ ] ls-middleware
+- [ ] ls-sessions
+- [ ] sideloader-provide
+- [ ] sideloader-start
+- [ ] stdin
+- [ ] swap-middleware
