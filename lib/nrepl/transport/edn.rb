@@ -6,6 +6,9 @@ module NRepl
   module Transport
     module Edn
       class << self
+        def init
+        end
+
         def decode(str)
           EDN.read str
         end

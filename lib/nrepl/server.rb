@@ -14,18 +14,16 @@ module NRepl
 
           {
             server: server,
-            config: { host: host, port: port }
+            config: { host: host, port: port, mode: :tty}
           }
         end
       end
 
       def listen_and_serve(server:, config:)
         server.accept.then do |conn|
+          conn.puts greet(config[:host], config[:port])
           NRepl::Session.start.then do |session|
-            conn.puts greet(config[:host], config[:port])
-            while (data = conn.gets)
-              conn.puts Transport.handle(session, data)
-            end
+            Transport.handle(conn, session, mode: config[:mode])
           end
         end
       end

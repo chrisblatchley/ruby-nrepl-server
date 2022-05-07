@@ -1,19 +1,24 @@
 # frozen_string_literal: true
 
 require_relative 'transport/edn'
+require_relative 'transport/tty'
 
 module NRepl
   module Transport
     class << self
-      def handle(session, request, mode: :edn)
+      def handle(conn, session, mode: :edn)
         transport = {
-          edn: Edn
+          edn: Edn,
+          tty: Tty
         }[mode]
 
-        decoded = transport.decode(request)
-        response = Ops.dispatch(session, decoded)
+        conn.write(transport.init)
 
-        transport.encode(response)
+        while (input = conn.gets)
+          decoded = transport.decode(input)
+          response = Ops.dispatch(session, decoded)
+          conn.write transport.encode(response)
+        end
       end
     end
   end
