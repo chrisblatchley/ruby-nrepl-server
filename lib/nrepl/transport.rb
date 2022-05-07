@@ -4,12 +4,14 @@ module NRepl
   module Transport
     class << self
       def handle(session, request, mode: :edn)
-        data = case mode
-        when :edn
-          Edn.handle(request)
-        end
+        transport = {
+          edn: Edn
+        }[mode]
 
-        Ops.dispatch(session, data).to_edn
+        decoded = transport.decode(request)
+        response = Ops.dispatch(session, decoded)
+        
+        transport.encode(response)
       end
     end
   end

@@ -4,8 +4,12 @@ module NRepl
   module Transport
     module Edn
       class << self
-        def handle(str)
+        def decode(str)
           EDN.read str
+        end
+
+        def encode(response)
+          response.to_edn
         end
       end
     end
