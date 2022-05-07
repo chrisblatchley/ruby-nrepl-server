@@ -10,7 +10,7 @@ module NRepl
 
         decoded = transport.decode(request)
         response = Ops.dispatch(session, decoded)
-        
+
         transport.encode(response)
       end
     end

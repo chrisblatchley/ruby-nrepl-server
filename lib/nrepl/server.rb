@@ -34,6 +34,7 @@ module NRepl
       def stop(server:, **_)
         File.delete("nrepl.port")
         server.close
+        {}
       end
 
       def greet(host, port)
