@@ -1,15 +1,19 @@
+# frozen_string_literal: true
+
 require 'securerandom'
 
 module NRepl
   class Repl
     class << self
-      def run(session, code)
-        wrap_stdout(code).merge({
-          id: session[:id],
-          ns: 'main',
-          err: nil,
-        })
-      rescue Exception => e
+      def run(session, code) # rubocop:disable Metrics/MethodLength
+        wrap_stdout(code).merge(
+          {
+            id: session[:id],
+            ns: 'main',
+            err: nil
+          }
+        )
+      rescue Exception => e # rubocop:disable Lint/RescueException
         {
           id: session[:id],
           ns: 'main',
@@ -20,8 +24,8 @@ module NRepl
       end
 
       def wrap_stdout(code)
-        stdout, $stdout = $stdout, StringIO.new
-        value = eval(read(code))
+        stdout, $stdout = $stdout, StringIO.new # rubocop:disable Style/ParallelAssignment
+        value = self.eval(read(code))
         {
           out: $stdout.string.dump,
           value: value

@@ -17,6 +17,6 @@ module NRepl
 
     Server.listen_and_serve(**ctx)
 
-    Server.stop **ctx
+    Server.stop(**ctx)
   end
 end

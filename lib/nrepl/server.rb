@@ -1,21 +1,20 @@
+# frozen_string_literal: true
+
 require 'socket'
 
 module NRepl
   class Server
     class << self
-      def start(host: '0.0.0.0', port: '0', quiet: false)
+      def start(host: '0.0.0.0', port: '0')
         TCPServer.new(host, port).then do |server|
           port = server.addr[1]
+
           puts greet(host, port)
-          
           File.write('nrepl.port', "#{port}\n")
 
           {
             server: server,
-            config: {
-              host: host,
-              port: port
-            }
+            config: { host: host, port: port }
           }
         end
       end
@@ -24,7 +23,7 @@ module NRepl
         server.accept.then do |conn|
           NRepl::Session.start.then do |session|
             conn.puts greet(config[:host], config[:port])
-            while data = conn.gets
+            while (data = conn.gets)
               conn.puts Transport.handle(session, data)
             end
           end

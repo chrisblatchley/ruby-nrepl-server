@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe NRepl::Server do
   describe 'start' do
     let(:opts) { {} }
@@ -42,6 +44,6 @@ RSpec.describe NRepl::Server do
 
   describe 'greet' do
     subject { NRepl::Server.greet('localhost', 69420) }
-    it { is_expected.to eq('nREPL server started on port 69420 on host localhost - nrepl://localhost:69420')}
+    it { is_expected.to eq('nREPL server started on port 69420 on host localhost - nrepl://localhost:69420') }
   end
 end

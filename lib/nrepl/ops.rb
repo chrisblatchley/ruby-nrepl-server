@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NRepl
   module Ops
     # PROTOCOL = {
@@ -22,12 +24,13 @@ module NRepl
       def dispatch(session, request)
         case request[:op]
         when 'eval'
-          eval(session, request[:code])
+          self.eval(session, request[:code])
         else
-          {status: 'done'}
+          { status: 'done' }
         end
       end
 
+      # rubocop:disable Lint/UnusedMethodArgument, Naming/MethodParameterName, Metrics/ParameterLists
       def add_middleware(middleware, extra_namespaces: [])
         {
           status: 'done', # or 'error'
@@ -47,7 +50,7 @@ module NRepl
 
       def completions(prefix, complete_fn: 'My::Ns#completion', ns: 'main', options: {})
         {
-          completions: [{candidate: nil, type: nil}]
+          completions: [{ candidate: nil, type: nil }]
         }
       end
 
@@ -59,7 +62,7 @@ module NRepl
         }
       end
 
-      def eval(session, code, column: 0, eval: 'Kernel#eval', file: '', id: SecureRandom.uuid, line: 0, ns: 'main', read_cond: {})
+      def eval(session, code, column: 0, eval: 'Kernel#eval', file: '', id: SecureRandom.uuid, line: 0, ns: 'main', read_cond: {}) # rubocop:disable Layout/LineLength
         Repl.run(session, code)
         # {
         #   ex: nil,
@@ -123,6 +126,7 @@ module NRepl
           unresolved_middleware: []
         }
       end
+      # rubocop:enable Lint/UnusedMethodArgument, Naming/MethodParameterName, Metrics/ParameterLists
     end
   end
 end
