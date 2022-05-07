@@ -5,7 +5,8 @@ module NRepl
     class << self
       def start
         {
-          id: SecureRandom.uuid
+          id: SecureRandom.uuid,
+          binding: binding
         }
       end
     end

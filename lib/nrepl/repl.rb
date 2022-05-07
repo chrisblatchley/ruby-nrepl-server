@@ -6,7 +6,7 @@ module NRepl
   class Repl
     class << self
       def run(session, code) # rubocop:disable Metrics/MethodLength
-        wrap_stdout(code).merge(
+        wrap_stdout(session, code).merge(
           {
             id: session[:id],
             ns: 'main',
@@ -23,9 +23,9 @@ module NRepl
         }
       end
 
-      def wrap_stdout(code)
+      def wrap_stdout(session, code)
         stdout, $stdout = $stdout, StringIO.new # rubocop:disable Style/ParallelAssignment
-        value = self.eval(read(code))
+        value = self.eval(session, read(code))
         {
           out: $stdout.string.dump,
           value: value
@@ -38,8 +38,8 @@ module NRepl
         str
       end
 
-      def eval(ast)
-        Kernel.eval ast
+      def eval(session, ast)
+        Kernel.eval ast, session[:binding]
       end
     end
   end
