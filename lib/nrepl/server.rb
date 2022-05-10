@@ -5,7 +5,7 @@ require 'socket'
 module NRepl
   class Server
     class << self
-      def start(host: '0.0.0.0', port: '0')
+      def start(host: '0.0.0.0', port: '0', mode: :tty)
         TCPServer.new(host, port).then do |server|
           port = server.addr[1]
 
@@ -14,7 +14,7 @@ module NRepl
 
           {
             server: server,
-            config: { host: host, port: port, mode: :tty }
+            config: { host: host, port: port, mode: mode }
           }
         end
       end

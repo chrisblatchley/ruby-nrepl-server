@@ -10,9 +10,7 @@ require_relative 'nrepl/ops'
 module NRepl
   class Error < StandardError; end
 
-  def self.run
-    opts = {} # skip parsing from command line for now
-
+  def self.run(**opts)
     ctx = Server.start(**opts)
 
     Server.listen_and_serve(**ctx)

@@ -14,17 +14,15 @@ RSpec.describe NRepl::Server do
     let(:server) { double }
     let(:conn) { double }
     let(:session) { double }
-    let(:opts) { { server: server, config: {} } }
+    let(:opts) { { server: server, config: { mode: :tty } } }
 
     subject { NRepl::Server.listen_and_serve(**opts) }
 
     it 'accepts a connection and calls into transport handler' do
       expect(server).to receive(:accept).and_return(conn)
-      expect(conn).to receive(:puts).twice
+      expect(conn).to receive(:puts)
       expect(NRepl::Session).to receive(:start).and_return(session)
-      expect(conn).to receive(:gets).and_return('gets')
-      expect(NRepl::Transport).to receive(:handle).with(session, 'gets')
-      expect(conn).to receive(:gets).and_return(nil)
+      expect(NRepl::Transport).to receive(:handle).with(conn, session, mode: :tty)
       expect(subject).to eq(nil)
       # this is nutz...
     end

@@ -2,6 +2,7 @@
 
 require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
+require 'pry'
 
 RSpec::Core::RakeTask.new(:spec)
 
@@ -11,7 +12,8 @@ RuboCop::RakeTask.new
 
 task default: %i[spec rubocop]
 
-task :nrepl do
+task :nrepl, [:mode] do |_, args|
   require_relative 'lib/nrepl'
-  NRepl.run
+  mode = (args[:mode] || :tty).to_sym
+  NRepl.run(mode: mode)
 end
