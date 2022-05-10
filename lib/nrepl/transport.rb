@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
+require_relative 'transport/bencode'
 require_relative 'transport/edn'
 require_relative 'transport/tty'
 
 module NRepl
   module Transport
     class << self
-      def handle(conn, session, mode: :edn)
+      def handle(conn, session, mode: :bencode)
         transport = {
+          bencode: Bencode,
           edn: Edn,
           tty: Tty
         }[mode]
