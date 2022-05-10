@@ -13,14 +13,14 @@ module NRepl
 
           stream.parse!.transform_keys(&:to_sym)
         rescue BEncode::DecodeError => e
-          puts "BEncode Decode Error: #{e.to_s}"
-          return {}
+          puts "BEncode Decode Error: #{e}"
+          {}
         end
 
         def encode(response)
-          response.transform_values{ |v| v.nil? ? "" : v }.bencode
+          response.transform_values { |v| v.nil? ? '' : v }.bencode
         rescue BEncode::EncodeError => e
-          puts "BEncode Decode Error: #{e.to_s}"
+          puts "BEncode Decode Error: #{e}"
           'd6:status5:errore'
         end
       end

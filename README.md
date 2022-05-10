@@ -34,7 +34,7 @@ ctrl-c to quit. disconnect should shut down the nrepl server as well.
 
 Supported Transport protocols:
 
-- [ ] Bencode
+- [x] Bencode
 - [x] EDN
 - [x] TTY
 

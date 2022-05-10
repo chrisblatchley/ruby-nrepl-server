@@ -8,19 +8,22 @@ module NRepl
   module Transport
     class << self
       def handle(conn, session, mode: :bencode)
-        transport = {
-          bencode: Bencode,
-          edn: Edn,
-          tty: Tty
-        }[mode]
+        transport = transport_module(mode)
 
         conn.write(transport.init)
-
         while (input = conn.gets)
           decoded = transport.decode(input)
           response = Ops.dispatch(session, decoded)
           conn.write transport.encode(response)
         end
+      end
+
+      def transport_module(mode)
+        {
+          bencode: Bencode,
+          edn: Edn,
+          tty: Tty
+        }[mode]
       end
     end
   end
