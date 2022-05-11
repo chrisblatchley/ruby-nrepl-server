@@ -25,6 +25,8 @@ module NRepl
         case request[:op]
         when 'eval'
           self.eval(session, request[:code])
+        when 'describe'
+          describe()
         else
           { status: 'done' }
         end
@@ -55,10 +57,18 @@ module NRepl
       end
 
       def describe(**opts)
+        version = RUBY_VERSION.split('.')
         {
           aux: {},
-          ops: {},
-          versions: {}
+          ops: {
+            eval: {},
+            describe: {}
+          },
+          versions: {
+            major: version[0],
+            minor: version[1],
+            patch: version[2]
+          }
         }
       end
 
