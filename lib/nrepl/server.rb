@@ -5,7 +5,7 @@ require 'socket'
 module NRepl
   class Server
     class << self
-      def start(host: '0.0.0.0', port: '0', mode: :bencode)
+      def start(host: '0.0.0.0', port: '0', mode: :bencode, verbose: false)
         TCPServer.new(host, port).then do |server|
           port = server.addr[1]
 
@@ -14,16 +14,15 @@ module NRepl
 
           {
             server: server,
-            config: { host: host, port: port, mode: mode }
+            config: { host: host, port: port, mode: mode, verbose: verbose }
           }
         end
       end
 
       def listen_and_serve(server:, config:)
         server.accept.then do |conn|
-          conn.puts greet(config[:host], config[:port])
           NRepl::Session.start.then do |session|
-            Transport.handle(conn, session, mode: config[:mode])
+            Transport.handle(conn, session, **config.slice(:mode, :verbose))
           end
         end
       end

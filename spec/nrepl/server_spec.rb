@@ -20,7 +20,6 @@ RSpec.describe NRepl::Server do
 
     it 'accepts a connection and calls into transport handler' do
       expect(server).to receive(:accept).and_return(conn)
-      expect(conn).to receive(:puts)
       expect(NRepl::Session).to receive(:start).and_return(session)
       expect(NRepl::Transport).to receive(:handle).with(conn, session, mode: :tty)
       expect(subject).to eq(nil)

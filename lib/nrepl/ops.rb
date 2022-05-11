@@ -22,11 +22,11 @@ module NRepl
 
     class << self
       def dispatch(session, request)
-        case request[:op]
+        case request[:op].to_s
         when 'eval'
           self.eval(session, request[:code])
         when 'describe'
-          describe()
+          describe
         else
           { status: 'done' }
         end
@@ -56,8 +56,8 @@ module NRepl
         }
       end
 
-      def describe(**opts)
-        version = RUBY_VERSION.split('.')
+      def describe(**opts) # rubocop:disable Metrics/MethodLength
+        major, minor, patch = RUBY_VERSION.split('.')
         {
           aux: {},
           ops: {
@@ -65,21 +65,15 @@ module NRepl
             describe: {}
           },
           versions: {
-            major: version[0],
-            minor: version[1],
-            patch: version[2]
+            major: major,
+            minor: minor,
+            patch: patch
           }
         }
       end
 
       def eval(session, code, column: 0, eval: 'Kernel#eval', file: '', id: SecureRandom.uuid, line: 0, ns: 'main', read_cond: {}) # rubocop:disable Layout/LineLength
         Repl.run(session, code)
-        # {
-        #   ex: nil,
-        #   ns: ns,
-        #   root_ex: nil,
-        #   value: nil
-        # }
       end
 
       def interrupt(session, interrupt_id: '')

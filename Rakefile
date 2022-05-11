@@ -12,8 +12,9 @@ RuboCop::RakeTask.new
 
 task default: %i[spec rubocop]
 
-task :nrepl, [:mode] do |_, args|
+task :nrepl, [:mode, :verbose] do |_, args|
   require_relative 'lib/nrepl'
   mode = (args[:mode] || :tty).to_sym
-  NRepl.run(mode: mode)
+  verbose = !args[:verbose].nil?
+  NRepl.run(mode: mode, verbose: verbose)
 end
