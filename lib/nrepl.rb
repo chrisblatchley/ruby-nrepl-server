@@ -5,7 +5,7 @@ require_relative 'nrepl/server'
 require_relative 'nrepl/repl'
 require_relative 'nrepl/transport'
 require_relative 'nrepl/session'
-require_relative 'nrepl/ops'
+require_relative 'nrepl/handler'
 
 module NRepl
   class Error < StandardError; end

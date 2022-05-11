@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module NRepl
-  module Ops
+  module Handler
     # PROTOCOL = {
     #   'add-middleware' => method(:add_middleware)
     #   'clone' => method(:clone)

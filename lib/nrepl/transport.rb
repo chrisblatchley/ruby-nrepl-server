@@ -15,7 +15,7 @@ module NRepl
           decoded = transport.decode(input)
           puts "<- #{decoded}" if opts[:verbose]
 
-          response = Ops.dispatch(session, decoded)
+          response = Handler.dispatch(session, decoded)
 
           puts "-> #{response}" if opts[:verbose]
           conn.write transport.encode(response)
