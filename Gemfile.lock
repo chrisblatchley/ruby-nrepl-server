@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     nrepl (0.0.1)
+      bencode
       edn
 
 GEM
