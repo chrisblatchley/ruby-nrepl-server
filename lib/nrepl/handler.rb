@@ -23,10 +23,12 @@ module NRepl
     class << self
       def dispatch(session, request)
         case request[:op].to_s
-        when 'eval'
-          self.eval(session, request[:code])
+        when 'clone'
+          clone(session_id: request[:id])
         when 'describe'
           describe
+        when 'eval'
+          self.eval(session, request[:code])
         else
           { status: 'done' }
         end
@@ -42,7 +44,9 @@ module NRepl
 
       def clone(session_id: '')
         {
-          new_session: ''
+          id: session_id,
+          "new-session": SecureRandom.uuid,
+          status: 'done'
         }
       end
 

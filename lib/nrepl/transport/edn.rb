@@ -6,14 +6,10 @@ module NRepl
   module Transport
     module Edn
       class << self
-        def init; end
-
-        def decode(str)
-          EDN.read str
-        end
-
-        def encode(response)
-          response.to_edn
+        def stream(io)
+          while (decoded = EDN.read(io))
+            io.write (yield decoded).to_edn
+          end
         end
       end
     end

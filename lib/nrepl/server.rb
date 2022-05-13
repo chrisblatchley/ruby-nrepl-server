@@ -20,10 +20,8 @@ module NRepl
       end
 
       def listen_and_serve(server:, config:)
-        server.accept.then do |conn|
-          NRepl::Session.start.then do |session|
-            Transport.handle(conn, session, **config.slice(:mode, :verbose))
-          end
+        server.accept.then do |io|
+          Transport.handle(io, **config.slice(:mode, :verbose))
         end
       end
 

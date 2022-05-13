@@ -4,12 +4,12 @@ module NRepl
   module Transport
     module Tty
       class << self
-        def init
-          "Ruby #{RUBY_VERSION}\n#{prompt('main')}"
-        end
+        def stream(io)
+          io.write "Ruby #{RUBY_VERSION}\n#{prompt('main')}"
 
-        def decode(str)
-          { op: 'eval', code: str }
+          while (input = io.gets)
+            io.write encode(yield({ op: 'eval', code: input }))
+          end
         end
 
         def encode(response)

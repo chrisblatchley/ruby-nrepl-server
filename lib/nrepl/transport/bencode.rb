@@ -6,22 +6,19 @@ module NRepl
   module Transport
     module Bencode
       class << self
-        def init; end
-
-        def decode(str)
-          stream = BEncode::Parser.new(StringIO.new(str))
-
-          stream.parse!.transform_keys(&:to_sym)
-        rescue BEncode::DecodeError => e
-          puts "BEncode Decode Error: #{e}"
-          {}
+        def stream(io)
+          stream = BEncode::Parser.new(io)
+          while (decoded = stream.parse!.transform_keys(&:to_sym))
+            io.write encode(yield decoded)
+          end
+        rescue BEncode::DecodeError, BEncode::EncodeError => e
+          puts e
         end
+
+        private
 
         def encode(response)
           response.transform_values { |v| v.nil? ? '' : v }.bencode
-        rescue BEncode::EncodeError => e
-          puts "BEncode Decode Error: #{e}"
-          'd6:status5:errore'
         end
       end
     end
