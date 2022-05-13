@@ -12,7 +12,7 @@ RSpec.describe NRepl::Transport::Tty do
       context "with input #{tc[:input]}" do
         let(:io) { StringIO.new }
 
-        subject { NRepl::Transport::Tty.stream(io) { |_v| tc[:yielded] } }
+        subject { NRepl::Transport::Tty.stream(io) { tc[:yielded] } }
 
         it "returns #{tc[:response]}" do
           expect(subject).to be_nil

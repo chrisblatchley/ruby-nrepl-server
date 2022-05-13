@@ -22,7 +22,7 @@ RSpec.describe NRepl::Transport::Edn do
           io.rewind
         end
 
-        subject { NRepl::Transport::Edn.stream(io) { |_v| tc[:yielded] } }
+        subject { NRepl::Transport::Edn.stream(io) { tc[:yielded] } }
 
         it "returns #{tc[:response]}" do
           expect(subject).to be_nil

@@ -27,7 +27,7 @@ RSpec.describe NRepl::Transport::Bencode do
           io.rewind
         end
 
-        subject { NRepl::Transport::Bencode.stream(io) { |_v| tc[:yielded] } }
+        subject { NRepl::Transport::Bencode.stream(io) { tc[:yielded] } }
 
         it "returns #{tc[:response]}" do
           expect(subject).to be_nil
