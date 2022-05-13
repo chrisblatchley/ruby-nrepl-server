@@ -7,7 +7,7 @@ module NRepl
     module Edn
       class << self
         def stream(io)
-          while (decoded = EDN.read(io))
+          while (decoded = EDN.read(io, nil))
             io.write (yield decoded).to_edn
           end
         end

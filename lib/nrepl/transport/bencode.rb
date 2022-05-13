@@ -8,7 +8,7 @@ module NRepl
       class << self
         def stream(io)
           stream = BEncode::Parser.new(io)
-          while (decoded = stream.parse!.transform_keys(&:to_sym))
+          while (decoded = stream.parse!&.transform_keys(&:to_sym))
             io.write encode(yield decoded)
           end
         rescue BEncode::DecodeError, BEncode::EncodeError => e
