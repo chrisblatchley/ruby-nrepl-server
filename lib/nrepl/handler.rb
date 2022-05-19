@@ -21,6 +21,11 @@ module NRepl
     # }
 
     class << self
+      # map an op code to the correct function
+      #
+      # @param session [Hash]
+      # @param request [Hash] {op:}
+      # @return [Hash] {status:}
       def dispatch(session, request)
         case request[:op].to_s
         when 'clone'
