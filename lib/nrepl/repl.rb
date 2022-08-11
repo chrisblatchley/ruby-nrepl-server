@@ -24,7 +24,10 @@ module NRepl
             err: nil
           }
         )
-      rescue SyntaxError
+      rescue SyntaxError => e
+        # only handle this exception for the tty mode. all others expect complete ruby expressions
+        raise e unless session[:mode] == :tty
+
         session[:cont] = code
         {
           id: session[:id],

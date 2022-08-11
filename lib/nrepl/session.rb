@@ -5,10 +5,11 @@ module NRepl
     class << self
       # create a session hash
       # @return [Hash]
-      def start
+      def start(mode: :bencode)
         {
           id: SecureRandom.uuid,
-          binding: binding
+          binding: binding,
+          mode: mode,
         }
       end
     end

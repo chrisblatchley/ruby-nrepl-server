@@ -12,7 +12,7 @@ module NRepl
       # @param io [IO] an IO stream
       # @option mode [Symbol] :bencode (default), :edn, or :tty
       def handle(io, mode: :bencode, **_opts)
-        session = Session.start
+        session = Session.start(mode: mode)
 
         const_get(mode.capitalize).stream(io) do |data|
           Handler.dispatch(session, data)
