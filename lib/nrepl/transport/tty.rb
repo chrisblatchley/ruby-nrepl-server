@@ -13,7 +13,7 @@ module NRepl
         end
 
         def encode(response)
-          "#{response[:out].undump}#{response[:value]}\n#{prompt(response[:ns])}"
+          "#{response[:err]}#{response[:out].undump}#{response[:value]}\n#{prompt(response[:ns])}"
         end
 
         private

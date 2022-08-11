@@ -11,18 +11,33 @@ module NRepl
       # @param code [String] the code to eval
       # @return [Hash] {id:, ns:, err:, out:, value:}
       def run(session, code) # rubocop:disable Metrics/MethodLength
-        wrap_stdout(session, code).merge(
+        code = session[:cont] + code if session[:cont]
+
+        output = wrap_stdout(session, code)
+
+        session.delete(:cont)
+
+        output.merge(
           {
             id: session[:id],
             ns: 'main',
             err: nil
           }
         )
+      rescue SyntaxError => e
+        session[:cont] = code
+        {
+          id: session[:id],
+          out: '...'.dump,
+          ns: 'main',
+          err: nil,
+          value: nil
+        }
       rescue Exception => e # rubocop:disable Lint/RescueException
         {
           id: session[:id],
           ns: 'main',
-          out: '',
+          out: ''.dump,
           err: e.to_s,
           value: nil
         }
