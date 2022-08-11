@@ -44,7 +44,7 @@ Supported nREPL ops:
 - [ ] clone
 - [ ] close
 - [ ] completions
-- [ ] describe
+- [x] describe
 - [x] eval (very very very basic)
 - [ ] interrupt
 - [ ] load-file

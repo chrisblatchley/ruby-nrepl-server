@@ -9,7 +9,7 @@ module NRepl
         {
           id: SecureRandom.uuid,
           binding: binding,
-          mode: mode,
+          mode: mode
         }
       end
     end
