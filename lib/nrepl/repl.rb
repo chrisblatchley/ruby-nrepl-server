@@ -24,7 +24,7 @@ module NRepl
             err: nil
           }
         )
-      rescue SyntaxError => e
+      rescue SyntaxError
         session[:cont] = code
         {
           id: session[:id],
